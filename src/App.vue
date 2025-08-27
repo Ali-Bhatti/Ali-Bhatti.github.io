@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue'
+import SiteFooter from './components/SiteFooter.vue'
 
 const drawer = ref(false)
 
@@ -49,6 +50,7 @@ const navItems = [
         </transition>
       </router-view>
     </v-main>
+    <SiteFooter />
   </v-app>
 </template>
 

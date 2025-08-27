@@ -1,12 +1,56 @@
 <template>
-    <div>
-        <v-row justify="center" align="center">
-            <v-col class="text-center">
-                <h1>Hello, I'm Ali Bhatti</h1>
-                <p>I'm a software engineer with a passion for building web applications.</p>
-                <v-btn>Contact Me</v-btn>
-            </v-col>
-        </v-row>
+    <div class="home-wrapper">
+        <!-- Background Elements -->
+        <div class="background-elements">
+            <div class="bg-circle circle-1"></div>
+            <div class="bg-circle circle-2"></div>
+            <div class="bg-blur"></div>
+        </div>
+
+        <!-- Side Navigation -->
+        <nav class="side-nav">
+            <v-btn v-for="social in socials" :key="social.icon" :href="social.link" target="_blank" variant="text"
+                :aria-label="social.name" class="social-btn">
+                <v-icon>{{ social.icon }}</v-icon>
+            </v-btn>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Hero Section -->
+            <div class="hero-section">
+                <h2 class="greeting">Hi there 👋</h2>
+
+                <h1 class="name">I'm</h1>
+                <h1 class="name">Muhammad</h1>
+                <h1 class="name">Ali Bhatti</h1>
+
+                <div class="role-text">
+                    <span>I am into</span>
+                    <div class="typing-wrapper">
+                        <span class="typed-text">{{ displayedText }}</span>
+                        <span class="cursor" :class="{ 'typing': isTyping }"></span>
+                    </div>
+                </div>
+
+                <p class="bio">
+                    A passionate software engineer crafting elegant solutions and building exceptional digital
+                    experiences.
+                </p>
+
+                <div class="cta-group">
+                    <v-btn color="primary" size="x-large" variant="flat" to="/about" class="action-btn">
+                        About Me
+                        <v-icon end icon="mdi-arrow-right" class="ml-2"></v-icon>
+                    </v-btn>
+
+                    <v-btn variant="outlined" size="x-large" href="/resume.pdf" target="_blank" class="action-btn">
+                        Resume
+                        <v-icon end icon="mdi-download" class="ml-2"></v-icon>
+                    </v-btn>
+                </div>
+            </div>
+        </main>
     </div>
 </template>
 
