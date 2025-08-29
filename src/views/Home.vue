@@ -1,13 +1,42 @@
 <template>
-    <div>
-        <v-row justify="center" align="center">
-            <v-col class="text-center">
-                <h1>Hello, I'm Ali Bhatti</h1>
-                <p>I'm a software engineer with a passion for building web applications.</p>
-                <v-btn>Contact Me</v-btn>
-            </v-col>
-        </v-row>
-    </div>
+    <section class="home-wrapper">
+        <div class="hero-content">
+            <h2 class="greeting">Hi there 👋</h2>
+            <h1 class="name-gradient">I'm Muhammad Ali Bhatti</h1>
+
+            <div class="role-text">
+                <span>I specialize in</span>
+                <div class="typing-wrapper">
+                    <span class="typed-text">{{ displayedText }}</span>
+                    <span class="cursor" :class="{ 'typing': isTyping }"></span>
+                </div>
+            </div>
+
+            <p class="bio">
+                A passionate software engineer crafting elegant solutions and building exceptional digital
+                experiences.
+            </p>
+
+            <div class="cta-group">
+                <v-btn color="primary" size="x-large" variant="flat" to="/about" class="action-btn">
+                    About Me
+                    <v-icon end icon="mdi-arrow-right" class="ml-2"></v-icon>
+                </v-btn>
+
+                <v-btn variant="outlined" size="x-large" href="/resume.pdf" target="_blank" class="action-btn">
+                    Resume
+                    <v-icon end icon="mdi-download" class="ml-2"></v-icon>
+                </v-btn>
+            </div>
+
+            <div class="socials">
+                <v-btn v-for="social in socials" :key="social.icon" :href="social.link" target="_blank" variant="text"
+                    :aria-label="social.name" class="social-btn">
+                    <v-icon>{{ social.icon }}</v-icon>
+                </v-btn>
+            </div>
+        </div>
+    </section>
 </template>
 
 <script setup>
@@ -66,99 +95,44 @@ const socials = [
 <style scoped>
 .home-wrapper {
     min-height: 100vh;
-    position: relative;
-    overflow: hidden;
-    background: var(--v-surface-base);
-}
-
-/* Background Elements */
-.background-elements {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    overflow: hidden;
-}
-
-.bg-circle {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(80px);
-}
-
-.circle-1 {
-    width: 400px;
-    height: 400px;
-    background: rgba(var(--v-theme-primary), 0.15);
-    top: -100px;
-    right: -100px;
-}
-
-.circle-2 {
-    width: 500px;
-    height: 500px;
-    background: rgba(var(--v-theme-secondary), 0.1);
-    bottom: -150px;
-    left: -150px;
-}
-
-.bg-blur {
-    position: absolute;
-    inset: 0;
-    backdrop-filter: blur(100px);
-    background: rgba(var(--v-theme-surface), 0.7);
-}
-
-/* Side Navigation */
-.side-nav {
-    position: fixed;
-    left: 2rem;
-    top: 50%;
-    transform: translateY(-50%);
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    z-index: 10;
-}
-
-.social-btn {
-    opacity: 0.7;
-    transition: opacity 0.3s ease;
-}
-
-.social-btn:hover {
-    opacity: 1;
-}
-
-/* Main Content */
-.main-content {
-    position: relative;
-    z-index: 1;
-    min-height: 100vh;
     display: flex;
     align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    background: radial-gradient(circle at top left, rgba(var(--v-theme-primary), 0.15), transparent 60%),
+        radial-gradient(circle at bottom right, rgba(var(--v-theme-secondary), 0.15), transparent 60%),
+        var(--v-surface-base);
 }
 
-.hero-section {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding-left: 4rem;
+.hero-content {
+    max-width: 900px;
+    text-align: center;
+    padding: 4rem 2rem;
+    animation: fadeUp 0.6s ease-out both;
+    position: relative;
+    z-index: 1;
 }
 
 .greeting {
     font-size: 1.5rem;
     font-weight: 500;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
 }
 
-.name {
+.name-gradient {
     font-size: 4rem;
-    font-weight: 700;
+    font-weight: 800;
     line-height: 1.1;
-    margin: 0;
+    margin-bottom: 1rem;
+    background: linear-gradient(to right, var(--v-primary-base), var(--v-secondary-base));
+    -webkit-background-clip: text;
+    color: transparent;
 }
 
 .role-text {
     display: flex;
+    justify-content: center;
     align-items: baseline;
     gap: 0.75rem;
     font-size: 1.5rem;
@@ -195,14 +169,16 @@ const socials = [
 .bio {
     font-size: 1.25rem;
     line-height: 1.6;
-    max-width: 600px;
-    margin: 2rem 0;
+    max-width: 650px;
+    margin: 0 auto 3rem;
     color: rgba(var(--v-theme-on-surface), 0.87);
 }
 
 .cta-group {
     display: flex;
+    justify-content: center;
     gap: 1rem;
+    margin-bottom: 2rem;
 }
 
 .action-btn {
@@ -210,8 +186,22 @@ const socials = [
     height: 48px;
 }
 
-@keyframes blink {
+.socials {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
 
+.social-btn {
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+
+.social-btn:hover {
+    opacity: 1;
+}
+
+@keyframes blink {
     0%,
     100% {
         opacity: 1;
@@ -222,62 +212,26 @@ const socials = [
     }
 }
 
-/* Responsive Styles */
-@media (max-width: 960px) {
-    .main-content {
-        padding: 0 4rem;
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
     }
 
-    .hero-section {
-        padding-left: 2rem;
-    }
-
-    .name {
-        font-size: 3.5rem;
-    }
-
-    .side-nav {
-        left: 1rem;
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 
 @media (max-width: 600px) {
-    .main-content {
-        padding: 0 2rem;
-    }
-
-    .hero-section {
-        padding-left: 0;
-        text-align: center;
-        padding-top: 4rem;
-    }
-
-    .side-nav {
-        position: fixed;
-        left: 0;
-        right: 0;
-        top: auto;
-        bottom: 2rem;
-        transform: none;
-        flex-direction: row;
-        justify-content: center;
-    }
-
-    .name {
+    .name-gradient {
         font-size: 3rem;
     }
 
     .role-text {
-        font-size: 1.25rem;
         flex-direction: column;
-        align-items: center;
-        gap: 0.5rem;
-    }
-
-    .bio {
-        font-size: 1.1rem;
-        margin-left: auto;
-        margin-right: auto;
+        font-size: 1.25rem;
     }
 
     .cta-group {
